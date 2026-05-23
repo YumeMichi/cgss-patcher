@@ -1,0 +1,69 @@
+name: Build cgss-patcher
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+    branches:
+      - "**"
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential \
+            clang \
+            curl \
+            git \
+            make \
+            perl \
+            xz-utils \
+            dpkg \
+            libplist-utils
+
+      - name: Setup Theos
+        run: |
+          bash -c "$(curl -fsSL https://raw.githubusercontent.com/theos/theos/master/bin/install-theos)"
+          echo "THEOS=$HOME/theos" >> "$GITHUB_ENV"
+
+      - name: Build package
+        run: |
+          make clean
+          make
+
+      - name: Pack injection bundle
+        run: |
+          mkdir -p dist/payload
+          dylib_path="$(find .theos obj -type f -name '*.dylib' 2>/dev/null | head -n 1)"
+          if [ -z "$dylib_path" ]; then
+            dylib_path="$(find . -type f -name '*.dylib' -not -path './theos/*' -not -path './dist/*' | head -n 1)"
+          fi
+          if [ -z "$dylib_path" ]; then
+            echo "no dylib found after build"
+            exit 1
+          fi
+          echo "using dylib: $dylib_path"
+          cp "$dylib_path" dist/payload/
+          cp cgss-patcher.plist dist/payload/
+          cp -R Settings.bundle dist/payload/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cgss-patcher-inject
+          path: dist/payload/**
+          if-no-files-found: error
