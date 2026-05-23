@@ -3,9 +3,9 @@ ARCHS = arm64
 
 include $(THEOS)/makefiles/common.mk
 
-TWEAK_NAME = llas-patcher
+TWEAK_NAME = cgss-patcher
 
-llas-patcher_FILES = Tweak.x
-llas-patcher_CFLAGS = -fobjc-arc
+cgss-patcher_FILES = Tweak.x
+cgss-patcher_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/tweak.mk

@@ -1,0 +1,4 @@
+"CGSS_SERVER_PARAMETERS_TITLE" = "CGSS Server Parameters";
+"CGSS_SERVER_PARAMETERS_FOOTER" = "Fill host/domain only (no http/https prefix). If prefix is entered, it will be removed automatically. If trailing slash is missing, it is auto-appended. Clearing a field restores the default official endpoint.";
+"CGSS_API_ENDPOINT_TITLE" = "API Endpoint";
+"CGSS_ASSET_ENDPOINT_TITLE" = "Asset Endpoint";

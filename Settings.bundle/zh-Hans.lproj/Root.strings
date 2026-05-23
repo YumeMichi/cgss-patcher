@@ -1,0 +1,4 @@
+"CGSS_SERVER_PARAMETERS_TITLE" = "CGSS 服务器参数";
+"CGSS_SERVER_PARAMETERS_FOOTER" = "仅填写主机名/域名（不要带 http/https 前缀）。如果输入了前缀会自动移除；如果末尾缺少 / 会自动补上。清空输入可恢复官方默认地址。";
+"CGSS_API_ENDPOINT_TITLE" = "API 地址";
+"CGSS_ASSET_ENDPOINT_TITLE" = "资源地址";

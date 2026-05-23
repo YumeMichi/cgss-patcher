@@ -1,5 +1,5 @@
-Package: com.yourcompany.llas-patcher
-Name: llas-patcher
+Package: com.yourcompany.cgss-patcher
+Name: cgss-patcher
 Version: 0.0.1
 Architecture: iphoneos-arm
 Description: An awesome MobileSubstrate tweak!
